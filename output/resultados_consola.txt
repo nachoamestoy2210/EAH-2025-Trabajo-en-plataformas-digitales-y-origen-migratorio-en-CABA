@@ -1,0 +1,628 @@
+
+>>> Corriendo 01_limpieza.R 
+
+--- Control de codificación (valores originales de la base) ---
+
+m1:
+
+   1    2    3    4    5    6   97   98   99 
+7683  455 1327  954 1107  923    5    2    1 
+
+tu3:
+
+   0    1    2 
+5958  195 6304 
+
+tuso3:
+
+    0     1     2     9 
+11707    49   700     1 
+
+nivel:
+
+   0    1    2    3    4    5    6    7    8    9 
+  43  386 1283  621 1886 2114 2397 3584  141    2 
+
+m2_anio (resumen):
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    0.0     0.0     0.0   336.8     0.0  9999.0 
+
+aesc (resumen):
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+      0       9      12      12      15      99 
+
+Población ocupada (suma de fexp): 1.583.656 
+
+Ocupados: 6499 | Universo origen x plataforma: 6496 | Trabajadores de plataformas: 238 
+Cortes de terciles de ingreso laboral ($): 1.000.000 1.805.288 
+
+>>> Corriendo 02_descriptivo.R 
+
+A.2 % de ocupados en plataformas según origen
+# A tibble: 2 × 4
+  origen               casos casos_plataforma
+  <fct>                <int>            <int>
+1 Inmigrantes           1256               85
+2 Nacidos en Argentina  5240              153
+  pct_plataforma
+           <dbl>
+1           8.9 
+2           3.16
+
+A.3 Edad de los trabajadores de plataformas
+# A tibble: 2 × 5
+  origen               casos media mediana desvio
+  <fct>                <int> <dbl>   <int>  <dbl>
+1 Inmigrantes             85  38.8      37   11.2
+2 Nacidos en Argentina   153  39        37   13.3
+
+A.4 Año de llegada y años de residencia (inmigrantes ocupados)
+# A tibble: 2 × 6
+  plataforma casos anio_llegada_medio
+  <lgl>      <int>              <dbl>
+1 FALSE       1161              2006.
+2 TRUE          84              2014.
+  anio_llegada_mediano residencia_media
+                 <dbl>            <dbl>
+1                 2008             19.1
+2                 2018             10.6
+  residencia_mediana
+               <dbl>
+1                 17
+2                  7
+
+A.5 Horas e ingresos de los trabajadores de plataformas
+# A tibble: 2 × 6
+  origen               casos horas_media horas_mediana
+  <fct>                <int>       <dbl>         <dbl>
+1 Inmigrantes             85        52.5            52
+2 Nacidos en Argentina   153        41.3            40
+  ingreso_medio ingreso_mediano
+          <dbl>           <int>
+1       1259693         1000000
+2       1523553         1100000
+
+A.6 Nivel educativo de los trabajadores de plataformas
+# A tibble: 14 × 5
+   origen               nivel_educativo           casos
+   <fct>                <fct>                     <int>
+ 1 Inmigrantes          Sin instrucción               0
+ 2 Inmigrantes          Primario incompleto           1
+ 3 Inmigrantes          Primario completo             4
+ 4 Inmigrantes          Secundario incompleto         4
+ 5 Inmigrantes          Secundario completo          27
+ 6 Inmigrantes          Superior/univ. incompleto    17
+ 7 Inmigrantes          Superior/univ. completo      32
+ 8 Nacidos en Argentina Sin instrucción               0
+ 9 Nacidos en Argentina Primario incompleto           0
+10 Nacidos en Argentina Primario completo             6
+11 Nacidos en Argentina Secundario incompleto        25
+12 Nacidos en Argentina Secundario completo          43
+13 Nacidos en Argentina Superior/univ. incompleto    38
+14 Nacidos en Argentina Superior/univ. completo      41
+   personas   pct
+      <dbl> <dbl>
+ 1        0  0   
+ 2       36  0.16
+ 3     1267  5.47
+ 4      682  2.95
+ 5     6753 29.2 
+ 6     5083 22.0 
+ 7     9332 40.3 
+ 8        0  0   
+ 9        0  0   
+10     1937  4.64
+11     7442 17.8 
+12    10759 25.8 
+13     9829 23.6 
+14    11757 28.2 
+
+A.6 % con estudios superiores
+# A tibble: 2 × 4
+  origen               casos pct_superior_alguno
+  <fct>                <int>               <dbl>
+1 Inmigrantes             85                62.3
+2 Nacidos en Argentina   153                51.7
+  pct_superior_completo
+                  <dbl>
+1                  40.3
+2                  28.2
+
+A.7 Observaciones disponibles para el k-means: 227 
+
+Criterio del codo (suma de cuadrados intra-cluster por k)
+# A tibble: 8 × 2
+      k suma_cuadrados_intra
+  <int>                <dbl>
+1     1                 904.
+2     2                 667.
+3     3                 554.
+4     4                 480.
+5     5                 426.
+6     6                 376.
+7     7                 345.
+8     8                 321.
+
+Tamaño de cada cluster (casos muestrales):
+cluster
+ 1  2  3 
+83 60 84 
+
+Centros de los clusters (variables estandarizadas):
+   edad horas log_ingresos anios_escolaridad
+1 -0.25  0.35         0.55              0.82
+2  1.10  0.58         0.29             -0.41
+3 -0.54 -0.77        -0.76             -0.52
+
+Varianza explicada por el modelo (%): 38.7 
+
+Perfil de cada cluster (medias ponderadas)
+# A tibble: 3 × 8
+  cluster observaciones poblacion_estimada edad_media
+  <fct>           <int>              <dbl>      <dbl>
+1 1                  83              22953       35.9
+2 2                  60              16449       53.2
+3 3                  84              21370       32.2
+  horas_medias ingreso_medio escolaridad_media
+         <dbl>         <dbl>             <dbl>
+1         53.7       1958626              15.8
+2         55         1659633              11.9
+3         30.7        722983              11.8
+  porcentaje_inmigrantes
+                   <dbl>
+1                   43.6
+2                   35.1
+3                   26.9
+
+Composición de cada cluster por origen
+# A tibble: 6 × 4
+  cluster origen               poblacion_estimada
+  <fct>   <fct>                             <dbl>
+1 1       Inmigrantes                       10014
+2 1       Nacidos en Argentina              12939
+3 2       Inmigrantes                        5778
+4 2       Nacidos en Argentina              10671
+5 3       Inmigrantes                        5740
+6 3       Nacidos en Argentina              15630
+  porcentaje
+       <dbl>
+1       43.6
+2       56.4
+3       35.1
+4       64.9
+5       26.9
+6       73.1
+
+Distribución de cada origen entre los clusters
+# A tibble: 6 × 5
+  origen               cluster casos personas
+  <fct>                <fct>   <int>    <dbl>
+1 Inmigrantes          1          37    10014
+2 Inmigrantes          2          23     5778
+3 Inmigrantes          3          20     5740
+4 Nacidos en Argentina 1          46    12939
+5 Nacidos en Argentina 2          37    10671
+6 Nacidos en Argentina 3          64    15630
+  pct_del_origen
+           <dbl>
+1           46.5
+2           26.8
+3           26.7
+4           33.0
+5           27.2
+6           39.8
+
+1) Nulos por variable (ocupados)
+# A tibble: 7 × 4
+  variable                        nulos total   pct
+  <chr>                           <int> <int> <dbl>
+1 horas                             181  6499  2.79
+2 ingresos                          128  6499  1.97
+3 anio_llegada (solo inmigrantes)    11  1256  0.88
+4 anios_escolaridad                   7  6499  0.11
+5 nivel_educativo                     4  6499  0.06
+6 origen                              2  6499  0.03
+7 plataforma                          1  6499  0.02
+
+2) Personas según cantidad de nulos
+# A tibble: 4 × 3
+  n_nulos personas   pct
+    <dbl>    <int> <dbl>
+1       0     6187 95.2 
+2       1      302  4.65
+3       2        9  0.14
+4       3        1  0.02
+
+3) % de nulos por origen
+# A tibble: 3 × 7
+  origen               casos plataforma nivel_educativo
+  <fct>                <int>      <dbl>           <dbl>
+1 Inmigrantes           1256       0               0.16
+2 Nacidos en Argentina  5241       0.02            0.04
+3 <NA>                     2       0               0   
+  anios_escolaridad horas ingresos
+              <dbl> <dbl>    <dbl>
+1              0.32  3.03     2.55
+2              0.06  2.73     1.83
+3              0     0        0   
+
+4) Valores extremos por grupo
+# A tibble: 6 × 5
+  origen               plataforma casos extremos_horas
+  <fct>                <lgl>      <int>          <int>
+1 Inmigrantes          FALSE       1171             54
+2 Inmigrantes          TRUE          85              6
+3 Nacidos en Argentina FALSE       5087            121
+4 Nacidos en Argentina TRUE         153             10
+5 Nacidos en Argentina NA             1              0
+6 <NA>                 FALSE          2              0
+  extremos_ingresos
+              <int>
+1                25
+2                 0
+3               270
+4                 5
+5                 0
+6                 0
+
+5) Plataformas: horas e ingresos con y sin extremos
+# A tibble: 4 × 7
+  escenario    origen               casos horas_media
+  <chr>        <fct>                <int>       <dbl>
+1 Con extremos Inmigrantes             85        52.5
+2 Con extremos Nacidos en Argentina   153        41.3
+3 Sin extremos Inmigrantes             79        50.2
+4 Sin extremos Nacidos en Argentina   139        39.2
+  horas_mediana ingreso_medio ingreso_mediano
+          <dbl>         <dbl>           <int>
+1            52       1259693         1000000
+2            40       1523553         1100000
+3            51       1232481         1000000
+4            40       1337302         1000000
+wrote 2.15GB in  0s, 2.15GB/s                                                       wrote 2.15GB in  0s, 2.15GB/s                                                       wrote 2.15GB in  0s, 2.15GB/s                                                       wrote 2.15GB in  0s, 2.15GB/s                                                       wrote 696.00B in  0s, 69.51MB/s                                                       wrote 2.15GB in  0s, 2.15GB/s                                                       wrote 2.15GB in  0s, 2.15GB/s                                                       wrote 2.15GB in  0s, 2.15GB/s                                                       wrote 2.15GB in  0s, 2.15GB/s                                                       wrote 2.15GB in  0s, 2.15GB/s                                                       wrote 2.15GB in  0s, 2.15GB/s                                                       wrote 2.15GB in  0s, 2.15GB/s                                                       wrote 2.15GB in  0s, 2.15GB/s                                                       wrote 2.15GB in  0s, 2.15GB/s                                                       wrote 2.15GB in  0s, 2.15GB/s                                                       wrote 2.15GB in  0s, 2.15GB/s                                                       
+>>> Corriendo 03_tests_chi2.R 
+               plataforma
+inmigrante      Plataformas Otros ocupados
+  Inmigrante             85           1171
+  No inmigrante         153           5087
+
+	Pearson's Chi-squared test
+
+data:  tabla
+X-squared = 42.496, df = 1, p-value = 7.082e-11
+
+               plataforma
+inmigrante      Plataformas Otros ocupados
+  Inmigrante             46           1210
+  No inmigrante         192           5048
+               plataforma
+inmigrante      Plataformas Otros ocupados
+  Inmigrante           6.52          -6.52
+  No inmigrante       -6.52           6.52
+
+	Pearson's X^2: Rao & Scott adjustment
+
+data:  svychisq(~inmigrante + plataforma_f, diseno, statistic = "F")
+F = 51.691, ndf = 1, ddf = 6495, p-value =
+7.223e-13
+
+
+=== V DE CRAMÉR ===
+V de Cramér (ponderada): 0.1074 
+V de Cramér (muestral):  0.0809 
+Intensidad de la asociación: Débil 
+
+>>> Corriendo 04_grafico_exploratorio.R 
+
+>>> Corriendo 05_grafico_comunicativo.R 
+
+>>> Corriendo 06_metodo_cuantitativo.R 
+
+Nacidos en Argentina          Inmigrantes 
+                 150                   84 
+                                   origen    horas
+Nacidos en Argentina Nacidos en Argentina 41.32995
+Inmigrantes                   Inmigrantes 52.53006
+                           se
+Nacidos en Argentina 1.670023
+Inmigrantes          1.909086
+
+	Design-based t-test
+
+data:  horas ~ origen
+t = 4.4157, df = 232, p-value = 1.544e-05
+alternative hypothesis: true difference in mean is not equal to 0
+95 percent confidence interval:
+  6.202681 16.197529
+sample estimates:
+difference in mean 
+          11.20011 
+
+
+Diferencia de horas semanales (inmigrantes - nacidos en Argentina)
+# A tibble: 2 × 8
+  escenario             diferencia_horas error_estandar
+  <chr>                            <dbl>          <dbl>
+1 Todos los casos                   11.2           2.54
+2 Sin extremos de horas             10.8           2.33
+  ic95_inferior ic95_superior     t    gl    p_valor
+          <dbl>         <dbl> <dbl> <dbl>      <dbl>
+1          6.20          16.2  4.42   232 0.0000154 
+2          6.18          15.4  4.63   216 0.00000638
+wrote 2.15GB in  0s, 2.15GB/s                                                       
+>>> Corriendo 07_descriptivo_previo.R 
+
+F.1 Flujo del universo de análisis
+# A tibble: 4 × 4
+  etapa                              casos poblacion
+  <chr>                              <int>     <dbl>
+1 Base individual                    12457   3086714
+2 Ocupados (fexp > 0)                 6499   1583656
+3 Con origen y plataforma informados  6496   1582458
+4 Trabajan en plataformas              238     64877
+  pct_casos_previa
+             <dbl>
+1             NA  
+2             52.2
+3            100  
+4              3.7
+
+F.1 Casos muestrales: origen desagregado x plataforma
+# A tibble: 3 × 3
+  origen_det           Plataformas `Otros ocupados`
+  <fct>                      <int>            <int>
+1 Nacidos en Argentina         153             5087
+2 Extranjero (cód. 4)           73              530
+3 Extranjero (cód. 5)           12              641
+
+F.2 Variables numéricas: plataformas vs. otros ocupados
+# A tibble: 10 × 14
+   variable                              plataforma_f  
+   <chr>                                 <fct>         
+ 1 Edad (años)                           Plataformas   
+ 2 Edad (años)                           Otros ocupados
+ 3 Horas semanales                       Plataformas   
+ 4 Horas semanales                       Otros ocupados
+ 5 Ingreso laboral ($)                   Plataformas   
+ 6 Ingreso laboral ($)                   Otros ocupados
+ 7 Años de escolaridad                   Plataformas   
+ 8 Años de escolaridad                   Otros ocupados
+ 9 Años de residencia (solo inmigrantes) Plataformas   
+10 Años de residencia (solo inmigrantes) Otros ocupados
+       n     media     desvio    cv minimo    p10    p25
+   <int>     <dbl>      <dbl> <dbl>  <dbl>  <dbl>  <dbl>
+ 1   238      39.0      12.6  0.323     18     24     28
+ 2  6258      43.8      14.0  0.320     13     25     33
+ 3   234      45.4      18.0  0.396      8     20     32
+ 4  6081      39.3      14.3  0.364      1     20     30
+ 5   231 1430119.  1264716.   0.884  23000 400000 740000
+ 6  6137 1740922.  1525981.   0.877   5000 450000 800000
+ 7   237      13.3       2.92 0.219      2     10     12
+ 8  6252      14.4       3.17 0.220      0     11     12
+ 9    84      10.6      10.5  0.992      0      1      6
+10  1161      19.1      14.1  0.738      0      4      8
+   mediana     p75     p90    maximo asimetria
+     <dbl>   <dbl>   <dbl>     <dbl>     <dbl>
+ 1      37      47      57       72     0.500 
+ 2      43      53      63       88     0.342 
+ 3      45      56      70       98     0.0984
+ 4      40      46      55      138.    0.194 
+ 5 1000500 1800000 3000000 12500000     3.97  
+ 6 1400000 2100000 3457492 28400000     3.47  
+ 7      12      17      17       19    -0.211 
+ 8      15      17      18       19    -0.775 
+ 9       7      12      25       59     2.19  
+10      17      27      38       78     1.05  
+
+F.2 Variables numéricas: trabajadores de plataformas por origen
+# A tibble: 9 × 14
+  variable                             
+  <chr>                                
+1 Edad (años)                          
+2 Edad (años)                          
+3 Horas semanales                      
+4 Horas semanales                      
+5 Ingreso laboral ($)                  
+6 Ingreso laboral ($)                  
+7 Años de escolaridad                  
+8 Años de escolaridad                  
+9 Años de residencia (solo inmigrantes)
+  origen                   n     media     desvio    cv
+  <fct>                <int>     <dbl>      <dbl> <dbl>
+1 Inmigrantes             85      38.8      11.2  0.290
+2 Nacidos en Argentina   153      39.0      13.3  0.340
+3 Inmigrantes             84      52.5      15.2  0.290
+4 Nacidos en Argentina   150      41.3      18.1  0.438
+5 Inmigrantes             81 1259693.   788217.   0.626
+6 Nacidos en Argentina   150 1523553.  1452981.   0.954
+7 Inmigrantes             84      13.8       2.91 0.211
+8 Nacidos en Argentina   153      13.1       2.89 0.221
+9 Inmigrantes             84      10.6      10.5  0.992
+  minimo    p10    p25 mediana     p75     p90   maximo
+   <dbl>  <dbl>  <dbl>   <dbl>   <dbl>   <dbl>    <dbl>
+1     18     26     32      37      45      57       71
+2     18     22     27      37      49      57       72
+3      8     31     44      52      62      70       98
+4      8     18     30      40      55      68       98
+5 250000 500000 740000 1000000 1500000 2500000  4000000
+6  23000 320000 700000 1100000 2000000 3000000 12500000
+7      2     12     12      14      17      17       19
+8      7      9     12      12      15      17       19
+9      0      1      6       7      12      25       59
+  asimetria
+      <dbl>
+1    0.780 
+2    0.394 
+3    0.121 
+4    0.281 
+5    1.28  
+6    3.80  
+7   -0.550 
+8   -0.0373
+9    2.19  
+
+F.3 Distribución % dentro de cada grupo (ponderada y muestral)
+# A tibble: 26 × 7
+   variable        grupo         
+   <chr>           <fct>         
+ 1 Sexo            Plataformas   
+ 2 Sexo            Plataformas   
+ 3 Sexo            Otros ocupados
+ 4 Sexo            Otros ocupados
+ 5 Grupo de edad   Plataformas   
+ 6 Grupo de edad   Plataformas   
+ 7 Grupo de edad   Plataformas   
+ 8 Grupo de edad   Plataformas   
+ 9 Grupo de edad   Otros ocupados
+10 Grupo de edad   Otros ocupados
+11 Grupo de edad   Otros ocupados
+12 Grupo de edad   Otros ocupados
+13 Nivel educativo Plataformas   
+14 Nivel educativo Plataformas   
+15 Nivel educativo Plataformas   
+16 Nivel educativo Plataformas   
+17 Nivel educativo Otros ocupados
+18 Nivel educativo Otros ocupados
+19 Nivel educativo Otros ocupados
+20 Nivel educativo Otros ocupados
+21 Horas semanales Plataformas   
+22 Horas semanales Plataformas   
+23 Horas semanales Plataformas   
+24 Horas semanales Otros ocupados
+25 Horas semanales Otros ocupados
+26 Horas semanales Otros ocupados
+   categoria                   casos personas pct_pond
+   <fct>                       <int>    <dbl>    <dbl>
+ 1 Varón                         176    46471     71.6
+ 2 Mujer                          62    18406     28.4
+ 3 Varón                        3256   787578     51.9
+ 4 Mujer                        3002   730003     48.1
+ 5 Hasta 29 años                  69    18174     28  
+ 6 30 a 44 años                   96    26788     41.3
+ 7 45 a 59 años                   55    15279     23.6
+ 8 60 años o más                  18     4636      7.1
+ 9 Hasta 29 años                1171   259461     17.1
+10 30 a 44 años                 2211   579767     38.2
+11 45 a 59 años                 1909   453523     29.9
+12 60 años o más                 967   224830     14.8
+13 Hasta secundario incompleto    40    11364     17.5
+14 Secundario completo            70    17512     27  
+15 Superior/univ. incompleto      55    14912     23  
+16 Superior/univ. completo        73    21089     32.5
+17 Hasta secundario incompleto   902   176250     11.6
+18 Secundario completo          1238   273125     18  
+19 Superior/univ. incompleto    1411   343180     22.6
+20 Superior/univ. completo      2703   724586     47.8
+21 Hasta 35 hs                    63    17676     27.7
+22 36 a 48 hs                     72    19266     30.2
+23 Más de 48 hs                   99    26800     42  
+24 Hasta 35 hs                  1944   474417     32.2
+25 36 a 48 hs                   3054   744111     50.5
+26 Más de 48 hs                 1083   253995     17.2
+   pct_muestra
+         <dbl>
+ 1        73.9
+ 2        26.1
+ 3        52  
+ 4        48  
+ 5        29  
+ 6        40.3
+ 7        23.1
+ 8         7.6
+ 9        18.7
+10        35.3
+11        30.5
+12        15.5
+13        16.8
+14        29.4
+15        23.1
+16        30.7
+17        14.4
+18        19.8
+19        22.6
+20        43.2
+21        26.9
+22        30.8
+23        42.3
+24        32  
+25        50.2
+26        17.8
+
+F.4 % de ocupados en plataformas por categoría
+# A tibble: 15 × 5
+   variable              categoria                  
+   <chr>                 <chr>                      
+ 1 Origen (2 categorías) Inmigrantes                
+ 2 Origen (2 categorías) Nacidos en Argentina       
+ 3 Origen (3 categorías) Extranjero (cód. 4)        
+ 4 Origen (3 categorías) Extranjero (cód. 5)        
+ 5 Origen (3 categorías) Nacidos en Argentina       
+ 6 Sexo                  Mujer                      
+ 7 Sexo                  Varón                      
+ 8 Grupo de edad         30 a 44 años               
+ 9 Grupo de edad         45 a 59 años               
+10 Grupo de edad         60 años o más              
+11 Grupo de edad         Hasta 29 años              
+12 Nivel educativo       Hasta secundario incompleto
+13 Nivel educativo       Secundario completo        
+14 Nivel educativo       Superior/univ. completo    
+15 Nivel educativo       Superior/univ. incompleto  
+   casos casos_plataforma pct_plataforma
+   <int>            <int>          <dbl>
+ 1  1256               85           8.9 
+ 2  5240              153           3.16
+ 3   603               73          14.0 
+ 4   653               12           2.04
+ 5  5240              153           3.16
+ 6  3064               62           2.46
+ 7  3432              176           5.57
+ 8  2307               96           4.42
+ 9  1964               55           3.26
+10   985               18           2.02
+11  1240               69           6.55
+12   942               40           6.06
+13  1308               70           6.03
+14  2776               73           2.83
+15  1466               55           4.16
+
+F.5 % de valores nulos
+# A tibble: 10 × 4
+   universo           casos variable          pct_nulos
+   <chr>              <int> <chr>                 <dbl>
+ 1 Plataformas          238 origen                 0   
+ 2 Plataformas          238 nivel_educativo        0   
+ 3 Plataformas          238 anios_escolaridad      0.42
+ 4 Plataformas          238 horas                  1.68
+ 5 Plataformas          238 ingresos               2.94
+ 6 Todos los ocupados  6499 origen                 0.03
+ 7 Todos los ocupados  6499 nivel_educativo        0.06
+ 8 Todos los ocupados  6499 anios_escolaridad      0.11
+ 9 Todos los ocupados  6499 horas                  2.79
+10 Todos los ocupados  6499 ingresos               1.97
+
+F.5 % de valores extremos (IQR) en plataformas
+# A tibble: 2 × 4
+  origen               casos pct_extremo_horas
+  <fct>                <int>             <dbl>
+1 Inmigrantes             85               7.1
+2 Nacidos en Argentina   153               6.7
+  pct_extremo_ingresos
+                 <dbl>
+1                  0  
+2                  3.3
+
+F.5 Factor de expansión (fexp) y efecto diseño de Kish
+# A tibble: 2 × 8
+  grupo                        casos fexp_minimo
+  <chr>                        <int>       <dbl>
+1 Plataformas                    238          11
+2 Universo origen x plataforma  6496          10
+  fexp_mediana fexp_maximo cv_pesos n_efectivo
+         <dbl>       <dbl>    <dbl>      <dbl>
+1         264.         661     0.54       184.
+2         220.         854     0.6       4793.
+  efecto_diseno_kish
+               <dbl>
+1               1.29
+2               1.36
+wrote 2.15GB in  0s, 2.15GB/s                                                       wrote 2.15GB in  0s, 2.15GB/s                                                       wrote 2.15GB in  0s, 2.15GB/s                                                       wrote 2.15GB in  0s, 2.15GB/s                                                       wrote 1.16kB in  0s, 97.39MB/s                                                       wrote 2.15GB in  0s, 2.15GB/s                                                       wrote 669.00B in  0s, 61.00MB/s                                                       wrote 2.15GB in  0s, 2.15GB/s                                                       wrote 2.15GB in  0s, 2.15GB/s                                                       wrote 2.15GB in  0s, 2.15GB/s                                                       wrote 2.15GB in  0s, 2.15GB/s                                                       

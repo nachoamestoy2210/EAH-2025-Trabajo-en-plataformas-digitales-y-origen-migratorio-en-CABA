@@ -1,0 +1,5 @@
+﻿"escenario";"origen";"casos";"horas_media";"horas_mediana";"ingreso_medio";"ingreso_mediano"
+"Con extremos";"Inmigrantes";"85";"52,5";"52";"1259693";"1000000"
+"Con extremos";"Nacidos en Argentina";"153";"41,3";"40";"1523553";"1100000"
+"Sin extremos";"Inmigrantes";"79";"50,2";"51";"1232481";"1000000"
+"Sin extremos";"Nacidos en Argentina";"139";"39,2";"40";"1337302";"1000000"
